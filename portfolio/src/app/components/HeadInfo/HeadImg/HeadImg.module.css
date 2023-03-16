@@ -1,0 +1,7 @@
+.imgContainer{
+    background-color: #323949;
+    border-radius: 50%;
+    width: 12rem;
+    height: 12rem;
+    position: relative;
+}
