@@ -1,7 +1,22 @@
 .imgContainer{
-    background-color: #323949;
+    background-image: url('../../../../../public/personPunk3.png');
+    background-position: 0%;
+    background-repeat: no-repeat;
+    background-size: cover;
     border-radius: 50%;
     width: 12rem;
     height: 12rem;
     position: relative;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Mobile and Tablet */
+@media (max-width: 1023px) {
+    .imgContainer{
+        width: 8rem;
+        height: 8rem;
+    }
 }

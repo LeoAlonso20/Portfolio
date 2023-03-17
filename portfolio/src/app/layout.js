@@ -14,7 +14,7 @@ const font = Space_Grotesk({
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={font.className}>{children}</body>
+      <body >{children}</body>
     </html>
   )
 }

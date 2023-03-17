@@ -1,4 +1,5 @@
 import styles from './HeadImg.module.css'
+import Image from 'next/image'
 
 const HeadImg = () => {
     return(

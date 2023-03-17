@@ -5,6 +5,9 @@
   align-items: center;
   padding: 3rem 12rem;
   min-height: 100vh;
+  background-image: url('../../public/1054256.jpg');
+  background-position: 0%;
+  background-size:cover;
 }
 
 .description {
