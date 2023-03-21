@@ -8,34 +8,35 @@ import {faChevronLeft, faChevronRight, faEnvelope, faIdBadge} from '@fortawesome
 import {faLinkedinIn, faGithub, faInstagram, faTwitter, faFacebookF} from '@fortawesome/free-brands-svg-icons'
 
 const HeadSocial = () => {
-    const [translate, setTranslate] = useState({
-        right: false,
-        left: false
-    })
-
     const [ icons, setIcons ] = useState([
-        [faLinkedinIn, true], 
-        [faGithub, true], 
+        [faLinkedinIn, false], 
+        [faGithub, false], 
         [faEnvelope, true], 
-        [faIdBadge, false], 
-        [faTwitter,false], 
+        [faIdBadge, true], 
+        [faTwitter,true], 
         [faFacebookF, false]
         ])
 
     const handleRightTranslate = () => {
-        setTranslate({
-            right: true,
-            left: false
-        })
-        console.log('right')
+        for(let i = 0; i < icons.length; i++){
+            if (verifyIndex(i)) {
+                let oldIcons = icons
+                setIcons(prevArray => oldIcons.fill([oldIcons[i + 1][0], false], i + 1, i + 2))
+                setIcons(prevArray => oldIcons.fill([oldIcons[i - 2][0], true], i - 2, i - 1))
+                break
+            }
+        }
     }
 
     const handleLeftTranslate = () => {
-        setTranslate({
-            right: false,
-            left: true
-        })
-        console.log('left')
+        for(let i = 0; i < icons.length; i++) {
+            if (verifyIndex(i)) {
+                let oldIcons = icons
+                setIcons(prevArray => oldIcons.fill([oldIcons[i - 1][0], false], i - 1, i))
+                setIcons(prevArray => oldIcons.fill([oldIcons[i + 2][0], true], i + 2, i + 3))
+                break
+            }
+        }
     }
 
     const verifyIndex = (index) => {
@@ -58,7 +59,56 @@ const HeadSocial = () => {
                             <FontAwesomeIcon icon={icon[0]} className={`${styles.socialIcon} ${ verifyIndex(index) ? styles.primarySocialIcon : ''}`}/>
                         </div>
                         : '' 
-                    )}
+                    )
+                }
+                {/* {
+                    icons[0][1]
+                            ?   <div className={`${styles.socialElement} ${ verifyIndex(0) ? styles.primarySocialElement : ''} 
+                                                animate__animated animate__fadeIn`}>
+                                    <FontAwesomeIcon icon={icons[0][0]} className={`${styles.socialIcon} ${ verifyIndex(0) ? styles.primarySocialIcon : ''}`}/>
+                                </div>
+                            :   ''
+                }
+                {
+                    icons[1][1]
+                            ?   <div className={`${styles.socialElement} ${ verifyIndex(1) ? styles.primarySocialElement : ''} 
+                                                animate__animated animate__fadeIn`}>
+                                    <FontAwesomeIcon icon={icons[1][0]} className={`${styles.socialIcon} ${ verifyIndex(1) ? styles.primarySocialIcon : ''}`}/>
+                                </div>
+                            :   ''
+                }
+                {
+                    icons[2][1]
+                            ?   <div className={`${styles.socialElement} ${ verifyIndex(2) ? styles.primarySocialElement : ''} 
+                                                animate__animated animate__fadeIn`}>
+                                    <FontAwesomeIcon icon={icons[2][0]} className={`${styles.socialIcon} ${ verifyIndex(2) ? styles.primarySocialIcon : ''}`}/>
+                                </div>
+                            :   ''
+                }
+                {
+                    icons[3][1]
+                            ?   <div className={`${styles.socialElement} ${ verifyIndex(3) ? styles.primarySocialElement : ''} 
+                                                animate__animated animate__fadeIn`}>
+                                    <FontAwesomeIcon icon={icons[3][0]} className={`${styles.socialIcon} ${ verifyIndex(3) ? styles.primarySocialIcon : ''}`}/>
+                                </div>
+                            :   ''
+                }
+                {
+                    icons[4][1]
+                            ?   <div className={`${styles.socialElement} ${ verifyIndex(4) ? styles.primarySocialElement : ''} 
+                                                animate__animated animate__fadeIn`}>
+                                    <FontAwesomeIcon icon={icons[4][0]} className={`${styles.socialIcon} ${ verifyIndex(4) ? styles.primarySocialIcon : ''}`}/>
+                                </div>
+                            :   ''
+                }
+                {
+                    icons[5][1]
+                            ?   <div className={`${styles.socialElement} ${ verifyIndex(5) ? styles.primarySocialElement : ''} 
+                                                animate__animated animate__fadeIn`}>
+                                    <FontAwesomeIcon icon={icons[5][0]} className={`${styles.socialIcon} ${ verifyIndex(5) ? styles.primarySocialIcon : ''}`}/>
+                                </div>
+                            :   ''
+                } */}
 
                 {/* <div className={`${styles.socialElement} ${ translate.right && !translate.left ? styles.primarySocialElement : ''} 
                                     animate__animated animate__fadeIn`}>
