@@ -17,12 +17,23 @@ const HeadSocial = () => {
         [faFacebookF, false]
         ])
 
+    const [ translate, setTranslate ] = useState({
+        right: false,
+        left: false
+    })
+
     const handleRightTranslate = () => {
         for(let i = 0; i < icons.length; i++){
             if (verifyIndex(i)) {
                 let oldIcons = icons
                 setIcons(prevArray => oldIcons.fill([oldIcons[i + 1][0], false], i + 1, i + 2))
+                //Controlar cuando el indice es 0, que es cuando queda fuera de rango
                 setIcons(prevArray => oldIcons.fill([oldIcons[i - 2][0], true], i - 2, i - 1))
+                console.log(icons)
+                setTranslate({...translate, right: true})
+                setTimeout(() => {
+                    setTranslate({...translate, right: false})
+                }, 50)
                 break
             }
         }
@@ -34,6 +45,11 @@ const HeadSocial = () => {
                 let oldIcons = icons
                 setIcons(prevArray => oldIcons.fill([oldIcons[i - 1][0], false], i - 1, i))
                 setIcons(prevArray => oldIcons.fill([oldIcons[i + 2][0], true], i + 2, i + 3))
+                
+                setTranslate({...translate, left: true})
+                setTimeout(() => {
+                    setTranslate({...translate, left: false})
+                }, 50)
                 break
             }
         }
@@ -55,7 +71,9 @@ const HeadSocial = () => {
                     icons.map((icon, index) => 
                     icon[1] 
                         ? <div key={index} className={`${styles.socialElement} ${ verifyIndex(index) ? styles.primarySocialElement : ''} 
-                                            animate__animated animate__fadeIn`}>
+                                                        ${ verifyIndex(index) && translate.left ? styles.leftTranslate : ''} 
+                                                        ${ verifyIndex(index) && translate.right ? styles.rightTranslate : ''}
+                                                        animate__animated animate__fadeIn`}>
                             <FontAwesomeIcon icon={icon[0]} className={`${styles.socialIcon} ${ verifyIndex(index) ? styles.primarySocialIcon : ''}`}/>
                         </div>
                         : '' 

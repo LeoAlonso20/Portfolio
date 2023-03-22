@@ -60,6 +60,17 @@
     font-size: 1.75em;
     filter: blur(0);
 }
+
+/* Translate social element */
+
+.leftTranslate{
+    transform: translateX(-10%);
+}
+
+.rightTranslate{
+    transform: translateX(10%);
+}
+
 /* Mobile and Tablet */
 @media (max-width: 1023px) {
     .socialContainer{
