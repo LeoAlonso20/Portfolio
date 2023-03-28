@@ -27,9 +27,16 @@ const HeadSocial = () => {
             if (verifyIndex(i)) {
                 let oldIcons = icons
                 setIcons(prevArray => oldIcons.fill([oldIcons[i + 1][0], false], i + 1, i + 2))
-                //Controlar cuando el indice es 0, que es cuando queda fuera de rango
-                setIcons(prevArray => oldIcons.fill([oldIcons[i - 2][0], true], i - 2, i - 1))
-                console.log(icons)
+
+                if(i == 1) {
+                    setIcons(prevArray => oldIcons.fill([oldIcons[oldIcons.length - 1][0], true], oldIcons.length - 1, oldIcons.length))
+                    const [firstIcon, secondIcon] = icons.slice(0, 2)
+
+                    setIcons(prevArray => oldIcons.filter((icon, index) => index != 0 && index != 1))
+                    setIcons(prevArray => [...prevArray, firstIcon, secondIcon])
+                }
+                else setIcons(prevArray => oldIcons.fill([oldIcons[i - 2][0], true], i - 2, i - 1))
+
                 setTranslate({...translate, right: true})
                 setTimeout(() => {
                     setTranslate({...translate, right: false})
@@ -44,7 +51,14 @@ const HeadSocial = () => {
             if (verifyIndex(i)) {
                 let oldIcons = icons
                 setIcons(prevArray => oldIcons.fill([oldIcons[i - 1][0], false], i - 1, i))
-                setIcons(prevArray => oldIcons.fill([oldIcons[i + 2][0], true], i + 2, i + 3))
+                if(i == icons.length - 2) {
+                    setIcons(prevArray => oldIcons.fill([oldIcons[0][0], true], 0, 1))
+                    const [firstIcon, secondIcon] = icons.slice(icons.length - 2, icons.length)
+
+                    setIcons(prevArray => oldIcons.filter((icon, index) => index != icons.length - 2 && index != icons.length - 1))
+                    setIcons(prevArray => [firstIcon, secondIcon, ...prevArray])
+                }
+                else setIcons(prevArray => oldIcons.fill([oldIcons[i + 2][0], true], i + 2, i + 3))
                 
                 setTranslate({...translate, left: true})
                 setTimeout(() => {
@@ -57,8 +71,11 @@ const HeadSocial = () => {
 
     const verifyIndex = (index) => {
         try{
-            if( icons[index + 1][1] && icons[index - 1][1] ) return true
+            if( (icons[index + 1][1] && icons[index - 1][1])) {
+                return true
+            }
         } catch {
+            if((index === 0 && icons[index + 1][1] && icons[icons.length - 1][1])) return true
             return false
         }
     }
@@ -79,107 +96,6 @@ const HeadSocial = () => {
                         : '' 
                     )
                 }
-                {/* {
-                    icons[0][1]
-                            ?   <div className={`${styles.socialElement} ${ verifyIndex(0) ? styles.primarySocialElement : ''} 
-                                                animate__animated animate__fadeIn`}>
-                                    <FontAwesomeIcon icon={icons[0][0]} className={`${styles.socialIcon} ${ verifyIndex(0) ? styles.primarySocialIcon : ''}`}/>
-                                </div>
-                            :   ''
-                }
-                {
-                    icons[1][1]
-                            ?   <div className={`${styles.socialElement} ${ verifyIndex(1) ? styles.primarySocialElement : ''} 
-                                                animate__animated animate__fadeIn`}>
-                                    <FontAwesomeIcon icon={icons[1][0]} className={`${styles.socialIcon} ${ verifyIndex(1) ? styles.primarySocialIcon : ''}`}/>
-                                </div>
-                            :   ''
-                }
-                {
-                    icons[2][1]
-                            ?   <div className={`${styles.socialElement} ${ verifyIndex(2) ? styles.primarySocialElement : ''} 
-                                                animate__animated animate__fadeIn`}>
-                                    <FontAwesomeIcon icon={icons[2][0]} className={`${styles.socialIcon} ${ verifyIndex(2) ? styles.primarySocialIcon : ''}`}/>
-                                </div>
-                            :   ''
-                }
-                {
-                    icons[3][1]
-                            ?   <div className={`${styles.socialElement} ${ verifyIndex(3) ? styles.primarySocialElement : ''} 
-                                                animate__animated animate__fadeIn`}>
-                                    <FontAwesomeIcon icon={icons[3][0]} className={`${styles.socialIcon} ${ verifyIndex(3) ? styles.primarySocialIcon : ''}`}/>
-                                </div>
-                            :   ''
-                }
-                {
-                    icons[4][1]
-                            ?   <div className={`${styles.socialElement} ${ verifyIndex(4) ? styles.primarySocialElement : ''} 
-                                                animate__animated animate__fadeIn`}>
-                                    <FontAwesomeIcon icon={icons[4][0]} className={`${styles.socialIcon} ${ verifyIndex(4) ? styles.primarySocialIcon : ''}`}/>
-                                </div>
-                            :   ''
-                }
-                {
-                    icons[5][1]
-                            ?   <div className={`${styles.socialElement} ${ verifyIndex(5) ? styles.primarySocialElement : ''} 
-                                                animate__animated animate__fadeIn`}>
-                                    <FontAwesomeIcon icon={icons[5][0]} className={`${styles.socialIcon} ${ verifyIndex(5) ? styles.primarySocialIcon : ''}`}/>
-                                </div>
-                            :   ''
-                } */}
-
-                {/* <div className={`${styles.socialElement} ${ translate.right && !translate.left ? styles.primarySocialElement : ''} 
-                                    animate__animated animate__fadeIn`}>
-                    <FontAwesomeIcon icon={faGithub} className={`${styles.socialIcon}`} />
-                </div>
-                <div className={`${styles.socialElement} ${styles.primarySocialElement} 
-                                    animate__animated animate__fadeIn`}>
-                                <FontAwesomeIcon icon={faGithub} className={`${styles.socialIcon}`} />
-                </div>
-                <div className={`${styles.socialElement} ${ translate.right && !translate.left ? styles.primarySocialElement : ''} 
-                                    animate__animated animate__fadeIn`}>
-                    <FontAwesomeIcon icon={faGithub} className={`${styles.socialIcon}`} />
-                </div> */}
-                {/* {
-                    !translate.left && translate.right
-                            ? <div className={`${styles.socialElement} 
-                                               animate__animated animate__fadeIn`}>
-                                <FontAwesomeIcon icon={faGithub} className={`${styles.socialIcon}`} />
-                              </div>
-                            : <></>
-                }
-
-                {
-                    !translate.left
-                            ? <div className={`${styles.socialElement} ${ translate.right && !translate.left ? styles.primarySocialElement : ''} 
-                                               animate__animated animate__fadeIn`}>
-                                <FontAwesomeIcon icon={faGithub} className={`${styles.socialIcon}`} />
-                              </div>
-                            : <></>
-                }
-                
-                <div className={`${styles.socialElement} ${ !translate.right && !translate.left ? styles.primarySocialElement : ''} 
-                                 ${translate.left ? styles.socialLeftTranslate : ''} ${translate.right ? styles.socialRightTranslate : ''}`}>
-                    <FontAwesomeIcon icon={faLinkedinIn} className={`${styles.socialIcon} ${styles.primarySocialIcon}`} />
-                </div>
-
-                {
-                    !translate.right
-                            ? <div className={`${styles.socialElement} ${ !translate.right && translate.left ? styles.primarySocialElement : ''} 
-                                               animate__animated animate__fadeIn`}>
-                                <FontAwesomeIcon icon={faInstagram} className={`${styles.socialIcon}`} />
-                              </div>
-                            : <></>
-                }
-
-                {
-                    !translate.right && translate.left
-                            ? <div className={`${styles.socialElement} 
-                                               animate__animated animate__fadeIn`}>
-                                <FontAwesomeIcon icon={faEnvelope} className={`${styles.socialIcon}`} />
-                              </div>
-                            : <></>
-                } */}
 
                 <FontAwesomeIcon icon={faChevronRight} className={styles.chevronIcon} onClick={handleRightTranslate}/>
             </div>
